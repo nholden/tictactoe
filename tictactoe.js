@@ -1,4 +1,20 @@
-var board = ["-","-","-","-","-","-","-","-","-"]
+function initializeGame() {
+  var board = ["-","-","-","-","-","-","-","-","-"]
+  var boardArea = document.createElement("div");
+  boardArea.id = "boardArea";
+  document.body.appendChild(boardArea);
+  board.forEach(function(contents, i) {
+    var spaceContainer = document.createElement("div");
+    spaceContainer.id = "spaceContainer" + i;
+    spaceContainer.className = "spaceContainer";
+    boardArea.appendChild(spaceContainer);
+    var space = document.createElement("div");
+    space.id = "space" + i;
+    space.className = "space";
+    space.textContent = contents;
+    spaceContainer.appendChild(space);
+  });
+}
 
 function printBoard() {
   console.log(board[0] + board[1] + board[2]);
@@ -40,3 +56,5 @@ function checkWinner() {
   });
   return winner;
 }
+
+initializeGame();
