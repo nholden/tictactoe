@@ -1,5 +1,6 @@
+var board = ["","","","","","","","",""]
+
 function initializeGame() {
-  var board = ["-","-","-","-","-","-","-","-","-"]
   var boardArea = document.createElement("div");
   boardArea.id = "boardArea";
   document.body.appendChild(boardArea);
@@ -16,20 +17,21 @@ function initializeGame() {
   });
 }
 
-function printBoard() {
-  console.log(board[0] + board[1] + board[2]);
-  console.log(board[3] + board[4] + board[5]);
-  console.log(board[6] + board[7] + board[8]);
-};
+function updateBoard() {
+  board.forEach(function(space, i) {
+    browserSpace = document.getElementById("space" + i) 
+    browserSpace.textContent = space[i]
+  });
+}
 
 function move(player, space) {
-  if (board[space] == "-") {
+  if (board[space] == "") {
     board[space] = player;
   }
   else {
     console.log("That space is already occupied");
   }
-  printBoard();
+  updateBoard();
   if (checkWinner()) {
     console.log(checkWinner() + " wins! Game over.");
   }
@@ -48,7 +50,7 @@ function checkWinner() {
     var thirdSpacePlayer = board[winningCombo[2]];
     if (firstSpacePlayer == secondSpacePlayer) {
       if (secondSpacePlayer == thirdSpacePlayer) {
-        if (firstSpacePlayer != "-") {
+        if (firstSpacePlayer != "") {
           winner = firstSpacePlayer;
         }
       }
@@ -56,5 +58,3 @@ function checkWinner() {
   });
   return winner;
 }
-
-initializeGame();
