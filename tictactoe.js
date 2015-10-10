@@ -1,6 +1,7 @@
-var board = ["","","","","","","","",""]
+var board;
 
-function initializeGame() {
+function drawBoard() {
+  board = ["","","","","","","","",""];
   var boardArea = document.createElement("div");
   boardArea.id = "boardArea";
   document.body.appendChild(boardArea);
@@ -19,9 +20,14 @@ function initializeGame() {
 
 function updateBoard() {
   board.forEach(function(space, i) {
-    browserSpace = document.getElementById("space" + i) 
-    browserSpace.textContent = space[i]
+    var browserSpace = document.getElementById("space" + i); 
+    browserSpace.textContent = board[i];
   });
+}
+
+function resetBoard() {
+  board = ["","","","","","","","",""];
+  updateBoard();
 }
 
 function move(player, space) {
@@ -29,11 +35,11 @@ function move(player, space) {
     board[space] = player;
   }
   else {
-    console.log("That space is already occupied");
+    alert("That space is already occupied");
   }
   updateBoard();
   if (checkWinner()) {
-    console.log(checkWinner() + " wins! Game over.");
+    alert(checkWinner() + " wins! Game over.");
   }
 }
 
@@ -42,8 +48,8 @@ function checkWinner() {
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal winning combos
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical winning combos
     [0, 4, 8], [2, 4, 6] // diagonal winning combos
-  ]
-  var winner = false
+  ];
+  var winner = false;
   winningCombos.forEach(function(winningCombo) {
     var firstSpacePlayer = board[winningCombo[0]];
     var secondSpacePlayer = board[winningCombo[1]];
@@ -58,3 +64,5 @@ function checkWinner() {
   });
   return winner;
 }
+
+drawBoard();
