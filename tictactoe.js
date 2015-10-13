@@ -1,4 +1,5 @@
 var board;
+var turn = "X";
 
 function drawBoard() {
   board = ["","","","","","","","",""];
@@ -10,6 +11,12 @@ function drawBoard() {
     spaceContainer.id = "spaceContainer" + i;
     spaceContainer.className = "spaceContainer";
     boardArea.appendChild(spaceContainer);
+    spaceContainer.addEventListener("click", function(event) {
+      if (move(turn, i)) {
+        if (turn == "X") { turn = "O"; }
+        else if (turn == "O") { turn = "X"; }
+      }
+    });
     var space = document.createElement("div");
     space.id = "space" + i;
     space.className = "space";
@@ -33,13 +40,16 @@ function resetBoard() {
 function move(player, space) {
   if (board[space] == "") {
     board[space] = player;
+    updateBoard();
+    if (checkWinner()) {
+      alert(checkWinner() + " wins! Game over.");
+      resetBoard();
+    }
+    return true;
   }
   else {
     alert("That space is already occupied");
-  }
-  updateBoard();
-  if (checkWinner()) {
-    alert(checkWinner() + " wins! Game over.");
+    return false;
   }
 }
 
