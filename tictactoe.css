@@ -12,6 +12,19 @@ body {
   transform: translate(-50%, -50%);
 }
 
+#statusBar {
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  top: calc(100% - 30px);
+  background-color: #FF7084;
+  text-align: center;
+  color: #FBE2B4;
+  font-family: Arial;
+  font-size: 26px;
+  font-weight: bold;
+}
+
 .spaceContainer {
   position: relative;
   float: left;

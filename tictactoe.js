@@ -1,6 +1,7 @@
 var board;
 var turn = "X";
 
+
 function drawBoard() {
   board = ["","","","","","","","",""];
   var boardArea = document.createElement("div");
@@ -13,8 +14,14 @@ function drawBoard() {
     boardArea.appendChild(spaceContainer);
     spaceContainer.addEventListener("click", function(event) {
       if (move(turn, i)) {
-        if (turn == "X") { turn = "O"; }
-        else if (turn == "O") { turn = "X"; }
+        if (turn == "X") { 
+          turn = "O"; 
+          updateStatus("O's turn.");
+        }
+        else if (turn == "O") { 
+          turn = "X"; 
+          updateStatus("X's turn.");
+        }
       }
     });
     var space = document.createElement("div");
@@ -23,6 +30,10 @@ function drawBoard() {
     space.textContent = contents;
     spaceContainer.appendChild(space);
   });
+  var statusBar = document.createElement("div");
+  statusBar.id = "statusBar";
+  statusBar.textContent = turn + "'s turn.";
+  document.body.appendChild(statusBar);
 }
 
 function updateBoard() {
@@ -30,6 +41,11 @@ function updateBoard() {
     var browserSpace = document.getElementById("space" + i); 
     browserSpace.textContent = board[i];
   });
+}
+
+function updateStatus(message) {
+  var statusBar = document.getElementById("statusBar");
+  statusBar.textContent = message;
 }
 
 function resetBoard() {
